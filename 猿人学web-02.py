@@ -1,3 +1,4 @@
+import time
 from idlelib.iomenu import encoding
 
 import requests
@@ -9,37 +10,12 @@ subprocess.Popen = partial(subprocess.Popen, encoding='utf-8')
 
 import execjs
 
-# 1. 模拟一个基础的 document 对象
-dom_code = """
-const { JSDOM } = require('jsdom');
-const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
-var window = dom.window;
-var document = window.document;
-var navigator = window.navigator;
-const $ = jQuery = require('jquery')(window);
-
-"""
-
-# 2. 引入 jQuery 和您的 Cookie 插件代码
 with open('猿人学web-02.js', 'r+', encoding='utf-8') as f:
     js_code = f.read()
 
 ctx = execjs.compile(js_code)
 
-# 3. 组合所有 JavaScript 代码
-full_js_code = dom_code + js_code
-# 4. 创建上下文并执行
-ctx = execjs.compile(full_js_code)
 
-# 5. 现在可以调用 $.cookie 方法了
-# 设置一个 Cookie
-ctx.eval("""
-$.cookie('test_cookie', 'hello_from_python', { expires: 7, path: '/' })
-""")
-
-# 读取这个 Cookie
-cookie_value = ctx.eval("$.cookie('test_cookie')")
-print(f"获取到的 Cookie 值: {cookie_value}")
 
 cookies = {
     'sessionid': 'oesmn51cj5hgfm3h5t05am10ugnbo11x',
@@ -68,12 +44,13 @@ headers = {
 # sessionid=oesmn51cj5hgfm3h5t05am10ugnbo11x; qpfccr=true; no-alert3=true; tk=-5942336745486126056; Hm_lvt_434c501fe98c1a8ec74b813751d4e3e3=1758638713; Hm_lpvt_434c501fe98c1a8ec74b813751d4e3e3=1758638713; HMACCOUNT=4BD7E2EC1FA429CE; m=1faa9ca6906a547da7eea49239827c1a|1758638793000
 #
 # sessionid=oesmn51cj5hgfm3h5t05am10ugnbo11x; qpfccr=true; no-alert3=true; tk=-5942336745486126056; Hm_lvt_434c501fe98c1a8ec74b813751d4e3e3=1758638713; Hm_lpvt_434c501fe98c1a8ec74b813751d4e3e3=1758638713; HMACCOUNT=4BD7E2EC1FA429CE; m=3a1554e6e8c0ebcc32790ffbce106fee|1758638886000
-base_cookie = 'sessionid=oesmn51cj5hgfm3h5t05am10ugnbo11x; qpfccr=true; no-alert3=true; tk=-5942336745486126056; Hm_lvt_434c501fe98c1a8ec74b813751d4e3e3=1758638713; Hm_lpvt_434c501fe98c1a8ec74b813751d4e3e3=1758638713; HMACCOUNT=4BD7E2EC1FA429CE;'
 total = 0
 
 for i in range(1, 6):
-    cookies['m'] = ctx.call('get_m').replace('\u4e28', '|')
-    print(cookies['m'])
+    timestamp = int(time.time() * 1000)
+    m = ctx.call("get_m", timestamp)
+    print(f"获取到的 m 值: {m}")
+    cookies['m'] =  m
     params = {
         'page': str(i),
     }
