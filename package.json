@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "jquery": "^3.7.1",
-    "jsdom": "^27.0.0"
+    "jsdom": "^27.0.0",
+    "js-base64": "^3.7.5"
   }
 }
