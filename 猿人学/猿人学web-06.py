@@ -1,6 +1,6 @@
-import time
-
+import execjs
 import requests
+import time
 
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
@@ -10,7 +10,10 @@ import subprocess
 from functools import partial
 
 subprocess.Popen = partial(subprocess.Popen, encoding='utf-8')
-import requests
+with open('猿人学web-06back.js', 'r+', encoding='utf-8') as f:
+    js_code = f.read()
+ctx = execjs.compile(js_code)
+
 
 cookies = {
     'sessionid': 'h5uf8e8ctvjh2olq85t46npz7y9auurg',
@@ -34,12 +37,14 @@ headers = {
     'x-requested-with': 'XMLHttpRequest',
     # 'cookie': 'sessionid=h5uf8e8ctvjh2olq85t46npz7y9auurg; qpfccr=true; no-alert3=true; tk=-5942336745486126056',
 }
+for i in range(1, 6):
+    timetamp = int(time.time() * 1000)
+    m = ctx.call('r',timetamp,i)
+    params = {
+        'page': i,
+        'q': str(i)+"-"+str(timetamp),
+        'm':m
+    }
+    response = requests.get('https://match.yuanrenxue.cn/api/match/6', params=params, cookies=cookies, headers=headers)
+    print(response.json())
 
-params = {
-    'page': '3',
-    'm': 'ntWN3Fnq4Gs5MJ1flodtfFvS5ULHNk3D%2BrFa0SgfEGR2rZ3TaBVcLG9%2BK%2BGp15cn8clu2YxXwOM4Q5mX0UbN9a23OkNr98Nj%2FJhh3htPv%2FXMZnuKuAQ10pZXrYqWPVTP6%2BigqKV6J3O5Tvw0Pb2pTKA%2BovVvFBb4HmtuifnGb8g%3D',
-    'q': '1-1758979518000|2-1758979590000|3-1758979649000|4-1758979717000|5-1758979734000|',
-}
-
-response = requests.get('https://match.yuanrenxue.cn/api/match/6', params=params, cookies=cookies, headers=headers)
-print(response.json())
