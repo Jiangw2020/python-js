@@ -1,5 +1,10 @@
 globalObj = {};
 (function() {
+    window = global
+    location = {
+        'href' : 'https://match2023.yuanrenxue.cn/topic/1'
+    }
+    self = window
     function a(b, c, d) {
         function f(j, k) {
             if (!c[j]) {
@@ -35,7 +40,7 @@ globalObj = {};
     , {}],
     0x2: [function(a, b, c) {
           return function get_params(d) {
-            var e = Date['now']()
+            var e = 1760167052025
               , f = a('crypto-js')
               , g = '666yuanrenxue66'
               , h = f['AES']['encrypt'](e + String(d), g, {
@@ -104,7 +109,7 @@ globalObj = {};
                         y ^= u[u[y]]);
                     }
                 }());
-                var s = typeof global !== 'undefined' ? [0x0, 0x1b, 0x36, 0x8, 0x10, 0x1, 0x2, 0x4, 0x80, 0x20, 0x40] : [0x0, 0x1, 0x2, 0x4, 0x80, 0x1b, 0x36, 0x8, 0x10, 0x20, 0x40]
+                var s =  [0x0, 0x1, 0x2, 0x4, 0x80, 0x1b, 0x36, 0x8, 0x10, 0x20, 0x40]
                   , t = h['AES'] = g['extend']({
                     '_doReset': function() {
                         var u;
@@ -126,9 +131,8 @@ globalObj = {};
                                     u = i[u >>> 0x18] << 0x18 | i[u >>> 0x10 & 0xff] << 0x10 | i[u >>> 0x8 & 0xff] << 0x8 | i[u & 0xff],
                                     u ^= s[B / x | 0x0] << 0x18;
                                 else
-                                    x > 0x6 && B % x == 0x4 && (delete window,
-                                    window = 0x0,
-                                    u = window ? i[u >>> 0x1a] << 0x18 | i[u >>> 0x10 & 0xff] << 0x10 | i[u >>> 0x8 & 0xff] << 0x8 | i[u & 0xff] : i[u >>> 0x16] << 0x18 | i[u >>> 0x10 & 0xff] << 0x10 | i[u >>> 0x8 & 0xff] << 0x8 | i[u & 0xff]);
+                                    x > 0x6 && B % x == 0x4 && (
+                                    u = i[u >>> 0x1a] << 0x18 | i[u >>> 0x10 & 0xff] << 0x10 | i[u >>> 0x8 & 0xff] << 0x8 | i[u & 0xff] );
                                 A[B] = A[B - x] ^ u;
                             }
                         }
@@ -705,7 +709,7 @@ globalObj = {};
             }
             ['call'](this));
         }
-        ['call'](this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {}));
+        ['call'](this,  typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {}));
     }
     , {
         'crypto': 0x1
@@ -763,7 +767,7 @@ globalObj = {};
                         return j(k, l, n);
                     },
                     '_map': (function() {
-                        return !(typeof navigator === typeof Navigator || typeof navigator === 'undefined') && navigator instanceof Navigator ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=' : 'abcdefghiABCDEFGHIJKLMNOPQRSTUVWXYZjklmnopqrstuvwxyz0123456789+/=';
+                        return 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';
                     }())
                 };
                 function j(k, l, m) {
@@ -3479,25 +3483,8 @@ globalObj = {};
     }]
 }, {}, [0x2]));
 
-//
-// function get_param(page){
-//     // var time = Date.parse(new Date()).toString()
-//     var time = 1760148360122
-//     var key = '666yuanrenxue66';
-//     var text = time+page
-//     text = CryptoJS.enc.Utf8.parse(text)
-//     key = CryptoJS.enc.Utf8.parse(key)
-//     v = CryptoJS.AES.encrypt(text, key,{
-//         mode: CryptoJS.mode.ECB,
-//         padding: CryptoJS.pad.Pkcs7
-//     }).toString()
-//     return  {
-//         'page': page,
-//         'token': v,
-//         'now': time,
-//     }
-// }
 function get_data(page){
     return globalObj.aaa(page)
 }
 
+console.log(get_data(2))
