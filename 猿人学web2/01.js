@@ -40,7 +40,7 @@ globalObj = {};
     , {}],
     0x2: [function(a, b, c) {
           return function get_params(d) {
-            var e = 1760167052025
+            var e = Date['now']()
               , f = a('crypto-js')
               , g = '666yuanrenxue66'
               , h = f['AES']['encrypt'](e + String(d), g, {
@@ -52,6 +52,7 @@ globalObj = {};
                 'token': f['MD5'](h['toString']())['toString'](),
                 'now': e
             };
+            console.log(h['toString']())
             return j
         }
     }
@@ -1177,7 +1178,7 @@ globalObj = {};
                             RCON[0x0][0x0][0x0],
                             this['_hash'] = new h['init']([0x67452002, 0xefcdab80, 0x98badcfe, 0x10325476]);
                         } catch (q) {
-                            typeof document === 'object' ? this['_hash'] = new h['init']([0x67452301, 0xefcdab80, 0x98badcfe, 0x10325476]) : this['_hash'] = new h['init']([0x67452002, 0xefcdab80, 0x98badcfe, 0x3025476]);
+                            this['_hash'] = new h['init']([0x67452301, 0xefcdab80, 0x98badcfe, 0x10325476]);
                         }
                     },
                     '_doProcessBlock': function(q, r) {
@@ -3487,4 +3488,4 @@ function get_data(page){
     return globalObj.aaa(page)
 }
 
-console.log(get_data(2))
+// console.log(get_data(2))
