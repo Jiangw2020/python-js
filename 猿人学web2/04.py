@@ -57,3 +57,4 @@ for page in range(1, 6):
     num_list.extend([int(item['value']) for item in response.json()['data']])
 client.close()
 print(sum(num_list))
+# error
