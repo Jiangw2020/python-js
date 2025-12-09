@@ -10,12 +10,11 @@ subprocess.Popen = partial(subprocess.Popen, encoding='utf-8')
 
 import execjs
 
-with open('金山词霸.js', 'r+', encoding='utf-8') as f:
+with open('金山词霸02.js', 'r+', encoding='utf-8') as f:
     js_code = f.read()
 
 ctx = execjs.compile(js_code)
 
-content = '执炬迎风'
 content = 'Hold the torch and welcome the wind'
 
 sign =  ctx.call('get_sign', content)
