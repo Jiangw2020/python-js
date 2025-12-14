@@ -10,7 +10,7 @@ subprocess.Popen = partial(subprocess.Popen, encoding='utf-8')
 
 import execjs
 
-with open('金山词霸02.js', 'r+', encoding='utf-8') as f:
+with open('金山词霸webpack.js', 'r+', encoding='utf-8') as f:
     js_code = f.read()
 
 ctx = execjs.compile(js_code)

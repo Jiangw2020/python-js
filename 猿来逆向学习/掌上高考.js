@@ -14853,6 +14853,7 @@ var jw_;
 var e= jw_
 const v = "D23ABC@#56";
 var l = "https://api-gaokao.zjzw.cn/apidata/web?autosign=&like_spname=&local_batch_id=14&local_province_id=31&local_type_id=3&page=1&platform=2&school_id=263&sg_xuanke=&size=5&special_group=&uri=v1/school/special_plan&year=2025"
+// var l = "https://api-gaokao.zjzw.cn/apidata/web?autosign=&like_spname=&local_batch_id=14&local_province_id=31&local_type_id=3&page=1&platform=2&school_id=263&sg_xuanke=&size=5&special_group=&uri=v1/school/special_plan&year=2025&signsafe=3ca2e0500bac008794f57ead368415d5"
 var  u = (r = e(40),
         e.n(r))
           , s = (r = e(385),
