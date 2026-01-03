@@ -25,7 +25,7 @@ BASE_HEADERS = {
 
 COMMON_DATA = {
     "businessId": "5",
-    "token": "33b3810a585d4e9aae08a5690baeab4b",
+    "token": "9cdaa3eb7ca244499f41a21a6a671b6f",
     "cityCode": "021",
     "adCode": "310115"
 }
@@ -85,7 +85,7 @@ def third_request(activity_code, sku_id=None, item_id=None, sale_price=None):
         "activityCode": activity_code,
         "longitude": 121.588237,
         "latitude": 31.296032,
-        "payAmount": 0.01,
+        "payAmount": sale_price,
         "skuId": sku_id,  # 支持动态传入SKU ID
         "systemCode": "65",
         "salePrice": sale_price,
@@ -189,9 +189,9 @@ if __name__ == "__main__":
             sku_list = response_data.get('data', [])
             # 遍历SKU列表，查找符合条件的SKU
             target_sku_name = "不限次卡"
-            target_sale_price = 0.01
+            target_sale_price = [0.01,0.99,1.99]
             for sku in sku_list:
-                if target_sku_name in sku.get('skuName') and sku.get('salePrice') == target_sale_price:
+                if target_sku_name in sku.get('skuName') and target_sale_price.index(sku.get('salePrice')) != -1:
                     sku_id = sku.get('skuId')
                     item_id = sku.get('itemId')
                     sale_price = sku.get('salePrice')
