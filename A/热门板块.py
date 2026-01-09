@@ -1,32 +1,6 @@
 import akshare as ak
 import pandas as pd
 
-# stock_concept_cons_futu_df = ak.stock_concept_cons_futu(symbol="")
-# print(stock_concept_cons_futu_df)
-# stock_board_concept_spot_em_df = ak.stock_board_concept_spot_em(symbol="商业航天")
-# print(stock_board_concept_spot_em_df)
-#
-# df = pd.DataFrame(stock_board_concept_spot_em_df)
-#
-# # 方法1：转换为字典列表
-# list_data = df.to_dict('records')
-# print(list_data)
-
-
-# stock_info_cjzc_em_df = ak.stock_info_cjzc_em()
-# # print(stock_info_cjzc_em_df)
-#
-# df = pd.DataFrame(stock_info_cjzc_em_df)
-#
-# # 方法1：转换为字典列表
-# list_data = df.to_dict('records')
-# print(list_data[0]['链接'])
-
-
-# 分时
-# index_zh_a_hist_min_em_df = ak.index_zh_a_hist_min_em(symbol="002938", period="1", start_date="2026-01-08 09:30:00", end_date="2026-01-08 13:52:00")
-# print(index_zh_a_hist_min_em_df)
-
 # 技术指标：量价齐升，连续上涨，创新高
 # 资讯数据：财经快讯
 # 涨停板行情： 涨停股池
@@ -44,20 +18,20 @@ import pandas as pd
 # 历史行情数据： 后复权后
 
 
-# 行业板块数据
-stock_board_industry_name_em_df = ak.stock_board_industry_name_em()
-df = pd.DataFrame(stock_board_industry_name_em_df)
-# industry_data = df.to_dict('records')
-industry_data = []
 
-# 概念板块数据
-stock_board_concept_name_em_df = ak.stock_board_concept_name_em()
-df = pd.DataFrame(stock_board_concept_name_em_df)
-concept_data = df.to_dict('records')
 
-def analyze_hot_sectors(industry, concept, top_n=5):
-    print(industry)
-    print(concept)
+def analyze_hot_sectors(top_n=5):
+    # 行业板块数据
+    # stock_board_industry_name_em_df = ak.stock_board_industry_name_em()
+    # df = pd.DataFrame(stock_board_industry_name_em_df)
+    # industry_data = df.to_dict('records')
+    industry = []
+
+    # 概念板块数据
+    stock_board_concept_name_em_df = ak.stock_board_concept_name_em()
+    df = pd.DataFrame(stock_board_concept_name_em_df)
+    concept = df.to_dict('records')
+
     all_sectors = []
     for sector in industry:
         total_stocks = sector['上涨家数'] + sector['下跌家数']
@@ -107,19 +81,14 @@ def analyze_hot_sectors(industry, concept, top_n=5):
             '原始排名': sector['排名']
         })
     all_sectors.sort(key=lambda x: x['综合得分'], reverse=False)
-    return all_sectors[:top_n]
-hot_sectors = analyze_hot_sectors(industry_data, concept_data)
-
-print(hot_sectors)
-print("=" * 80)
-print("📊 今日热门板块TOP5分析（综合评分排序）")
-print("=" * 80)
-
-for i, sector in enumerate(hot_sectors, 1):
-    print(f"🔥 第{i}名：{sector['板块名称']} ({sector['类型']})")
-    print(f"   涨跌幅: {sector['涨跌幅']}  |  换手率: {sector['换手率']}")
-    print(f"   上涨家数: {sector['上涨家数']}家  下跌家数: {sector['下跌家数']}家  (上涨占比: {sector['上涨占比']})")
-    print(f"   总市值: {sector['总市值']}  |  领涨股: {sector['领涨股票']}")
-    print(f"   综合得分: {sector['综合得分']:.2f}")
-    print("-" * 80)
+    hot_sectors = all_sectors[:top_n]
+    for i, sector in enumerate(hot_sectors, 1):
+        print(f"🔥 第{i}名：{sector['板块名称']} ({sector['类型']})")
+        print(f"   涨跌幅: {sector['涨跌幅']}  |  换手率: {sector['换手率']}")
+        print(f"   上涨家数: {sector['上涨家数']}家  下跌家数: {sector['下跌家数']}家  (上涨占比: {sector['上涨占比']})")
+        print(f"   总市值: {sector['总市值']}  |  领涨股: {sector['领涨股票']}")
+        # print(f"   综合得分: {sector['综合得分']:.2f}")
+        print("-" * 80)
+    return hot_sectors
+# hot_sectors = analyze_hot_sectors(industry_data, concept_data)
 

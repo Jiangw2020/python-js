@@ -3,7 +3,8 @@ import pandas as pd
 from collections import defaultdict
 
 # target_sectors = ['商业航天', '人脑工程']
-target_sectors = ['商业航天', '可控核聚变', "人脑工程", "人形机器人"]
+target_sectors = ['商业航天', '可控核聚变', "人脑工程", "人形机器人","氦气概念","液冷概念"]
+target_sectors = ['商业航天', 'DRG/DIP', "空间站概念", "快手概念","6G概念"]
 stock_sectors = defaultdict(list)
 def get_stocks_by_sectors(target_sectors, min_sector_count=2):
     for sector in target_sectors:
@@ -39,5 +40,4 @@ def get_stocks_by_sectors(target_sectors, min_sector_count=2):
 
     return result_df
 
-
-print(get_stocks_by_sectors(target_sectors))
+# print(get_stocks_by_sectors(target_sectors))

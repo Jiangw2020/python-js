@@ -168,16 +168,20 @@
 # 不频繁交易：每周交易次数 ≤ 3次
 # 不听小道消息：只依据系统信号
 # 记录每一笔交易：便于复盘改进
-# 💡 特别提醒
-# 这套系统的核心是：
-#
-# 趋势为王：顺势而为，不逆市操作
-# 纪律第一：严格执行买卖纪律
-# 风控至上：保护本金比盈利更重要
-# 持续学习：不断优化和调整
-# 股市投资有风险，这套系统只是工具，无法保证盈利。建议：
-#
-# 先用模拟盘测试至少1个月
-# 小资金实盘验证2-3个月
-# 根据实际效果调整参数
-# 考虑咨询专业持牌的投资顾问
+from A.个股详情 import get_daily_info
+from A.成分股 import get_stocks_by_sectors
+from A.热门板块 import analyze_hot_sectors
+import pandas as pd
+
+top_n = 8
+print("=" * 80)
+print(f"📊 今日热门板块TOP{top_n}分析（综合评分排序）")
+print("=" * 80)
+# hot_sectors = analyze_hot_sectors(top_n)
+# target_sectors = pd.DataFrame(hot_sectors)['板块名称'].tolist()
+target_sectors = ['商业航天', "可控核聚变"]
+
+stocks = get_stocks_by_sectors(target_sectors,2)
+target_stocks = pd.DataFrame(stocks)
+for index, row in target_stocks.iterrows():
+    get_daily_info(row['代码'],row['名称'])
